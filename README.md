@@ -2,20 +2,18 @@
 
 > A Vue.js project
 
-## Build Setup
+## 一 前期初始化
 
 ``` bash
-# install dependencies
-npm install
+#适配适配移动端
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+#引入样式初始化文件 以及解决移动端border边框
+border.css reset.css
+ 
+#解决移动端点击事件延迟300毫秒
+1 npm fastclick 2 import fastClick from 'fastclick' 3 fastClick.attach(document.body)
 
-# serve with hot reload at localhost:8080
-npm run dev
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
