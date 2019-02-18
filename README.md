@@ -45,5 +45,28 @@ import '../assets/styles/iconfont.css'
 3. 合并分支: git merge dev
 - 把当前分支与指定分支合并
 4. 查看分支: git branch 
+5. 设置上游分支 git push --set-upstream origin index-swiper
+6. 推送上游分支 git push origin
+
+### git使用流程
+1. git add . 缓存当前分支
+2. git commit -m 'message' 储存分支
+3. git pust 提交到github分支
+4. git checkout master 切换到主分支
+5. git merge origin/dev 把线上的dev分支合并到主分支
+6. git push 把master的内容提交到github
+
+## 首页轮播图
+1. Vue-Awesome-Swiper轮播图插件的使用 
+- npm install vue-awesome-swiper@2.6.7 --save //安装
+2. 解决轮播图未加载出来时 下面的元素闪到上面
+```
+.warpper {
+  width: 100%;
+  height: 0;
+  padding-bottom: 37.5%;
+  overflow: hidden;
+```
+
 
 
