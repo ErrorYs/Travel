@@ -2,7 +2,11 @@
   <div>
     <div class="title">热销推荐</div>
     <ul>
-      <li class="item" v-for="(item, index) in recommontList" :key="index">
+      <li
+        class="item"
+        v-for="(item, index) in list"
+        :key="index"
+      >
         <img
           class="item-img"
           :src="item.imgUrl"
@@ -20,15 +24,8 @@
 
 <script>
 export default {
-  data () {
-    return {
-      recommontList: [
-        { id: '0001', title: '故宫', desc: '东方宫殿的代表,世界宫殿建筑典范', imgUrl: 'http://img1.qunarzz.com/sight/p0/1607/7c/7cda8b6782dabd80b4.img.jpg_200x200_2039e660.jpg' },
-        { id: '0001', title: '故宫', desc: '东方宫殿的代表,世界宫殿建筑典范', imgUrl: 'http://img1.qunarzz.com/sight/p0/1811/e4/e4b9b471d2afc473a3.img.jpg_200x200_9a7794fc.jpg' },
-        { id: '0001', title: '故宫', desc: '东方宫殿的代表,世界宫殿建筑典范', imgUrl: 'http://img1.qunarzz.com/sight/p0/1603/17/170481fb9caf500790.water.jpg_200x200_a32b9a92.jpg' },
-        { id: '0001', title: '故宫', desc: '东方宫殿的代表,世界宫殿建筑典范', imgUrl: 'http://img1.qunarzz.com/tuan/team2/1507/2c/83e0e0e7ae082a.jpg_200x200_6d7378b2.jpg' }
-      ]
-    }
+  props: {
+    list: Array
   }
 }
 </script>

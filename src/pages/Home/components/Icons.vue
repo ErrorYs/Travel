@@ -1,6 +1,9 @@
 <template>
   <div class="icons">
-    <swiper class="iconSwiper-containers">
+    <swiper
+      class="iconSwiper-containers"
+      :options="swiperOption"
+    >
       <swiper-slide
         v-for="(page, index) in pages"
         :key="index"
@@ -26,76 +29,20 @@
 
 <script>
 export default {
+  props: {
+    list: Array
+  },
   data () {
     return {
-      iconsList: [
-        {
-          id: '0001',
-          desc: '景点门票',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png'
-        },
-        {
-          id: '0002',
-          desc: '一日游',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1804/5a/13ceb38dcf262f02.png'
-        },
-        {
-          id: '0003',
-          desc: '重庆必游',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1804/ff/fdf170ee89594b02.png'
-        },
-        {
-          id: '0004',
-          desc: '精品小团',
-          imgUrl:
-            'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20191/de711920c71e38287d9f95f7910aa1aa.png'
-        },
-        {
-          id: '0005',
-          desc: '室内场馆',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/fa/2548667cb6e902.png'
-        },
-        {
-          id: '0006',
-          desc: '两江夜游',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/89/55083b0f1951f302.png'
-        },
-        {
-          id: '0007',
-          desc: '神秘武隆',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/96/c70f1e85ae4a4f02.png'
-        },
-        {
-          id: '0008',
-          desc: '泡温泉',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/ab/6f7d6e44963c9302.png'
-        },
-        {
-          id: '0009',
-          desc: '重庆滑雪',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/fc/b10a6b2e4f0fe102.png'
-        },
-        {
-          id: '0010',
-          desc: '游乐场',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/95/8246f27355943202.png'
-        }
-      ]
+      swiperOption: {
+        autoplay: false
+      }
     }
   },
   computed: {
     pages () {
       const pages = []
-      this.iconsList.forEach((item, index) => {
+      this.list.forEach((item, index) => {
         const page = Math.floor(index / 8)
         if (!pages[page]) {
           pages[page] = []
@@ -116,7 +63,7 @@ export default {
 </style>
 
 <style lang="less" scoped>
-@import '~styles/mixins.less';
+@import "~styles/mixins.less";
 .icons {
   // width: 100%;
   padding-bottom: 50%;

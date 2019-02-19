@@ -8,14 +8,18 @@
       输入城市/景点/游玩
     </div>
     <div class="header-right">
-      上海
+      {{city}}
       <span class="iconfont">&#xe62d;</span>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    'city': String
+  }
+}
 </script>
 
 <style lang="less" scoped>

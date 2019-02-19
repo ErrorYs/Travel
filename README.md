@@ -155,7 +155,7 @@ position: relative;
       font-size: 0.12rem;
       padding: 0 0.1rem;
     }
-    ```
+```
 2. .ellipsis();多出文本不能等显示省略号解决方法
 ```
 +在父元素加上min-width:0
@@ -174,10 +174,72 @@ position: relative;
       color: #cccccc;
       .ellipsis();
     }
-    ```
+```
 ## 周末去哪儿部分
 1. 直接复制recommend部分
 2. 注意有图片部分都用padding挤出方式
 
+## 通过axios获取首页数据
+1. 安装axios
+2. 在.gitignore文件中配置禁止git上上传数据文件到github
+```
+.DS_Store
+node_modules/
+/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+static/mock  //禁止同步到github
+```
+3. 在congig文件下配置访问地址
+```
+ proxyTable: {
+      '/api': {
+        target: 'http://localhost:8080', 把请求转发到8080当前服务器端口
+        pathRewrite: {
+          '^/api': '/static/mock'  //当ajax访问api的时候 把api替换成/static/mock
+        }
+      }
+    },
+```
+4. 在生命周期函数mounted里面请求ajax请求
+```
+ methods: {
+    getHomeinfo () {
+      axios.get('/static/mock/index.json')
+        .then(this.getHomeinfoSucc)
+    },
+    getHomeinfoSucc (res) {
+      console.log(res)
+    }
+  },
+  mounted () {
+    this.getHomeinfo()
+  }
+```
+5. 把数据从父组件传递给子组件
+```
+ getHomeinfoSucc (res) {
+      res = res.data
+      console.log(res)
+      if (res.ret && res.data) {
+        const data = res.data
+        this.city = data.city
+      }
+    }
+```
 
+6. 解决渲染轮播图时当前图片为最后一张
+```
+<swiper
+      :options="swiperOption"
+      v-if="showSwiper"  //通过vif判断来渲染轮播图
+    >
+
+computed: {  //在computed计算属性里判断list数据是否接受到了然后渲染
+    showSwiper () {
+      return this.list.length
+    }
+  }
+```
 
