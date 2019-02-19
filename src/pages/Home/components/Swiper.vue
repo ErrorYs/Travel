@@ -33,7 +33,8 @@ export default {
         }
       ],
       swiperOption: {
-        pagination: '.swiper-pagination'
+        pagination: '.swiper-pagination',
+        loop: true
       }
     }
   }
@@ -52,7 +53,7 @@ export default {
 .warpper {
   width: 100%;
   height: 0;
-  padding-bottom: 37.5%;
+  padding-bottom: 26.6%;
   overflow: hidden;
   .swiper-img {
     width: 100%;

@@ -68,5 +68,79 @@ import '../assets/styles/iconfont.css'
   overflow: hidden;
 ```
 
+##Icons 页面
+1. 加载图片还是用padding方式流出位置
+```
+position: relative;
+    width: 25%;
+    height: 0;
+    padding-bottom: 25%; 
+    float: left;
+
+    position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0.4rem; //利用絕對定位留出下面的位置
+      box-sizing: border-box;
+
+       position: absolute;
+      line-height: 0.4rem;
+      bottom: 0;
+      left: 0;
+      right: 0; //left和right設置為0 讓元素寬度自動100%
+      height: 0.4rem; //利用絕對定位留出下面的位置
+      text-align: center;
+```
+2. 图标用数据实现
+3. 把图标页面做成可以左右切换
+```
++超出八个图标切换到第二页,利用双循环实现
+  computed: {
+    pages () {
+      const pages = []
+      this.iconsList.forEach((item, index) => {
+        const page = Math.floor(index / 8)
+        if (!pages[page]) {
+          pages[page] = []
+        }
+        pages[page].push(item)
+      })
+      return pages
+    }
+  }
+}
+```
+4.  解决文字溢出部分用省略号显示
+```
+.ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+```
+5. less导出样式代码段
+```
++ 定义:
+.ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
++引用
+@import '~styles/mixins.less'; 导入
+.icon-desc {
+      position: absolute;
+      line-height: 0.4rem;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 0.4rem;
+      text-align: center;
+      .ellipsis(); //使用
+    }
+```
+
 
 
