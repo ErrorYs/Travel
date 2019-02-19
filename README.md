@@ -142,5 +142,42 @@ position: relative;
     }
 ```
 
+## recommend 推荐部分
+1. button不要设置高度,用padding自动挤出
+```
+ .item-button {
+      // width: .75rem;
+      // height: .2rem;
+      background-color: #ff9300;
+      border-radius: 0.03rem;
+      margin-top: 0.1rem;
+      line-height: 0.2rem;
+      font-size: 0.12rem;
+      padding: 0 0.1rem;
+    }
+    ```
+2. .ellipsis();多出文本不能等显示省略号解决方法
+```
++在父元素加上min-width:0
+
+  .item-info {
+    flex: 1;
+    padding: 0.05rem;
+    min-width: 0;
+    .item-title {
+      line-height: 0.25rem;
+      font-weight: bold;
+      .ellipsis();
+    }
+    .item-desc {
+      line-height: 0.2rem;
+      color: #cccccc;
+      .ellipsis();
+    }
+    ```
+## 周末去哪儿部分
+1. 直接复制recommend部分
+2. 注意有图片部分都用padding挤出方式
+
 
 
