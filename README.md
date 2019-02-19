@@ -51,9 +51,9 @@ import '../assets/styles/iconfont.css'
 ### git使用流程
 1. git add . 缓存当前分支
 2. git commit -m 'message' 储存分支
-3. git push 提交到github分支
+3. git pus 提交到github分支
 4. git checkout master 切换到主分支
-5. git merge origin/dev 把线上的dev分支合并到主分支
+5. git merge dev 把线上的dev分支合并到主分支 //origin/dev
 6. git push 把master的内容提交到github
 
 ## 首页轮播图
