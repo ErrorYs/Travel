@@ -244,4 +244,42 @@ computed: {  //在computed计算属性里判断list数据是否接受到了然�
 ```
 7. city路由页面创建
 8. search页面
+## 城市列表部分
+1. 按钮不要设置宽高,通过padding
+2. 滚动屏幕 better-scroll使用
+```
+<div class="list" ref="wrapper"></div>  //ref获取DOM元素
+
+import Bscroll from 'better-scroll'
+export default {
+  name: 'cityList',
+  mounted () {
+    this.scroll = new Bscroll(this.$refs.wrapper)
+  }
+}
+```
+## 创建屏幕右侧字母表alphabet 组件
+```
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top:.86rem;
+  bottom:0rem;
+  width: .2rem;
+  .item {
+    width: 0.2rem;
+    color: @bgColor;
+    text-align: center;
+    line-height: .2rem;
+  }
+}
+```
+
+##城市列表页面数据渲染
+****
+
+
 
