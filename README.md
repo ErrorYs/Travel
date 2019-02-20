@@ -279,7 +279,22 @@ export default {
 ```
 
 ##城市列表页面数据渲染
-****
+1. 循环对象
+```
+ <div
+        class="area"
+        v-for="(item, key) in cities"   //item为对象的键 key为对象的值
+        :key="key"         
+      >
+```
+2. 循环数组
+```
+ <div
+            class="button-warpper"
+            v-for="item in hotCities"   //循环数组不用加index
+            :key="item.id"
+          >
+```
 
 
 
