@@ -432,5 +432,203 @@ updated () {
   },
 ```
 
+## vuex的使用
+1. 引用stroe 在src文件夹下新建store文件夹
+```
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {
+    city: '北京'
+  }
+})
+```
+2. 在main.js里导入vuex文件 并挂载到App实例上
+import store from './store/index'
+
+new Vue({
+  el: '#app',
+  router,
+  store,   
+3. 把原来通过ajax获取到的city的数据删除替换,不再通过ajax获取
+     原来的city替换为 {{this.$store.state.city}}
+4. 实现点击热门城市改变vuex里面的city数据
+```
+@click="handleCityClick(item.name)"  //给热门城市绑定点击事件
+
+  methods: {
+    handleCityClick (city) {
+      this.$store.dispatch('changeCity',city)   //通过dispatch把changCity派送changeCity方法给ACtions,并传入city值
+    }
+  },
+
+  export default new Vuex.Store({
+  state: {
+    city: '上海'
+  },
+  actions: {
+    changeCity (ctx, city) {          //actions调用dispath传过来的changcity方法 ctx表示上下文
+      ctx.commit('changeCity', city)  //actions调用commit派送changecity方法给mutations
+    }
+  },
+  mutations: {
+    changeCity (state, city) {   //mutations调用actions派送过来的changecity方法改变state里面的city值
+      state.city = city
+    }
+  }
+})
+
+``` 
+5. 如果改变state没有异步操作或者没有复杂批量操作,组件可以不用调用actions做转发,直接调用mutations  
+```
+  methods: {
+    handleCityClick (city) {
+      this.$store.commit('changeCity', city)   //组件直接调用commit
+    }
+
+
+    export default new Vuex.Store({   //不调用actions
+  state: {
+    city: '上海'
+  },
+  mutations: {
+    changeCity (state, city) {
+      state.city = city
+    }
+  }
+})
+```
+6. 实现搜索和点击列表城市改变当前城市的数据改变
+```
+ <div
+            class="item border-bottom"
+            v-for="innerItem in item"
+            :key="innerItem.id"
+            @click="handleCityClick(innerItem.name)"  //城市列表
+          > {{innerItem.name}} </div>
+```
+```
+<li
+          class="search-item border-bottom"
+          v-for="item in list"
+          :key="item.id"
+          @click="handleCityClick(item.name)"
+        > {{item.name}} </li>
+```
+##点击选择的城市跳转到首页  路由的编程导航
+```
+this.$router.push('/')
+```
+##利用localstorage本地存储当前city
+1. 使用trycatch防止浏览器不支持localstorage报错
+```
+let defaultCity = '上海'
+try {
+  if (localStorage.city) {
+    defaultCity = localStorage.city
+  }
+} catch (error) {
+}
+
+export default new Vuex.Store({
+  state: {
+    city: defaultCity
+  },
+  mutations: {
+    changeCity (state, city) {
+      state.city = city
+      try {
+        localStorage.city = city
+      } catch (error) {}
+    }
+  }
+})
+
+```
+## 为了便于后期维护代码 把vuex的store进行拆分
+1. index文件
+```
+import Vue from 'vue'
+import Vuex from 'vuex'
+import state from './state'
+import mutations from './mutations'
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state,
+  mutations
+})
+```
+2. mutations文件
+```
+export default {
+  changeCity (state, city) {
+    state.city = city
+    try {
+      localStorage.city = city
+    } catch (error) {}
+  }
+}
+```
+3. state文件
+```
+let defaultCity = '上海'
+try {
+  if (localStorage.city) {
+    defaultCity = localStorage.city
+  }
+} catch (error) {
+}
+
+export default {
+  city: defaultCity
+}
+
+```
+
+## 解决首页城市名显示不完整
+```
+  .header-right {
+    float: right;
+    padding: 0 .02rem;
+    min-width: .52rem;  //把width改为min-width让字体边宽的时候会自动变宽
+    float: right;
+    text-align: center;
+    color: #fff;
+    span {
+```
+##优化vuex
+```
+<script>
+import {mapState} from 'vuex'
+export default {
+  name:'HomeHeader',
+  computed: {
+    ...mapState(['city'])   //...为展开运算符 把vuex里面的state里的city属性映射到当前实例的city属性里  可以传入数组
+  }
+}
+</script>
+
++import { mapState, mapMutations } from 'vuex'
+  methods: {
+    handleCityClick (city) {
+      // this.$store.commit('changeCity', city)
+      this.changeCity(city)                    
+      this.$router.push('/')
+    },
+    ...mapMutations(['changeCity'])   //把mutations里的changeCity方法直接映射到当前组件
+  },
+  computed: {
+    ...mapState({
+      currentCity: 'city'
+    })
+  },
+```
+
+
+
 
 
