@@ -628,6 +628,46 @@ export default {
   },
 ```
 
+##使用keepalive解决每次点击页面都会发送ajax请求  
+1. 在程序入口组件app.vue加速keepalive  keepalive使用的时缓存里面的数据
+```
+  <div id="app">
+    <keep-alive>
+      <router-view />
+    </keep-alive>
+  </div>
+```
+2. home首页发送ajax请求的时候应该把当前城市的名字发送过去
+```
+import {mapState} from 'vuex'  //引入vuex里的stata
+  computed:{
+    ...mapState(['city'])   //引入state里面的city属性
+  },
+
+methods: {
+    getHomeinfo () {
+      axios.get('api/index.json?city=' + this.city)  //发送ajax请求的时候把city属性一起发送
+        .then(this.getHomeinfoSucc)
+    },
+```
+3. 解决keepalive一直使用缓存当city改变的时候不重新发送ajax请求 
+4. keepalive新增activated生命周期函数
+```
+  data () {
+    return {
+      lastCity: '',    //data里定义一个lastcity属性
+  mounted () {
+    this.getHomeinfo()
+    this.lastCity = this.city  //当页面加载发送ajax请求的时候放lastcity等于当前state传过来的city
+  },
+  activated () {
+    if (this.city !== this.lastCity) {   //若果state发过来的city不等于上一次的lastcity 重新发送ajax请求 并改变lastcity
+      this.lastCity = this.city
+      this.getHomeinfo()
+    }
+  }        
+```
+
 
 
 
