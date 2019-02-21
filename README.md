@@ -295,6 +295,89 @@ export default {
             :key="item.id"
           >
 ```
+## 实现城市列表点击字母联动的效果
+1. 给每个循环向定义一个方法
+```
+  handleLetterClick(e){   //e为电视事件对象
+      console.log(e.target.innerText);
+    }
+```
+2. 兄弟组件之间传值 子组件-父组件-子组件
+3. 得到字母利用better-scroll实现跳转 在Watch里面监听
+```
+ <div
+        class="area"
+        v-for="(item, key) in cities"
+        :key="key"
+        :ref="key"   //同过key绑定这个dom元素
+      >
+
+  watch: {
+    cityAlphabet () {
+      // console.log(this.cityAlphabet)
+      if (this.cityAlphabet) {
+        const letter = this.$refs[this.cityAlphabet][0]
+        this.scroll.scrollToElement(letter)
+      }
+    }
+  }
+```
+## 滑动右侧字母左侧列表跟着滑动
+1. 把对象cities转换成数组  在computed里面计算属性
+```
+  computed: {
+    letters () {
+      const letters = []
+      for (const key in this.cities) {
+        letters.push(key)
+      }
+      return letters
+    }
+  }
+```
+2. 设置touch函数
+```
+    handeltouchstart () {
+      this.touchstatus = true
+    },
+    handeltouchmove (e) {
+      if (this.touchstatus) {   //判断是否开始滑动
+        const startY = this.$refs['A'][0].offsetTop  //求出右侧字母列表到顶部的距离
+        const touchY = e.touches[0].clientY - 86    //求出手指到顶部的距离
+        const index = Math.floor((touchY - startY) / 20)  //求出索引值
+        if (index >= 0 && index < this.letters.length) {
+          this.$emit('change', this.letters[index])  //根据索引值传出当前元素
+        }
+      }
+    },
+    handeltouchend () {
+      this.touchstatus = false
+    }
+```
+## 性能优化
+1. 值不变的参数不要放在函数里多次计算
+```
+updated () {
+    this.startY = this.$refs['A'][0].offsetTop   //把值一直不变的参数不要放在函数里多次计算,放在updated里只计算一次  data里面不能计算值
+  },
+```
+2. 函数截流 定义延迟函数
+```
+    handeltouchmove (e) {
+      if (this.touchstatus) {
+        if (this.timer) {
+          clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(() => {
+          const touchY = e.touches[0].clientY - 86
+          const index = Math.floor((touchY - this.startY) / 20)
+          if (index >= 0 && index < this.letters.length) {
+            this.$emit('change', this.letters[index])
+          }
+        }, 16)
+      }
+    },
+```
 
 
 

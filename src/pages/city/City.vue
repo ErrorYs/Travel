@@ -5,8 +5,12 @@
     <city-list
       :cities="cities"
       :hotCities="hotcities"
+      :cityAlphabet="cityAlphabet"
     ></city-list>
-    <city-alphabet :cities="cities"></city-alphabet>
+    <city-alphabet
+      :cities="cities"
+      @change="getalphaabet"
+    ></city-alphabet>
   </div>
 </template>
 
@@ -26,7 +30,8 @@ export default {
   data () {
     return {
       cities: {},
-      hotcities: []
+      hotcities: [],
+      cityAlphabet: ''
     }
   },
   methods: {
@@ -40,6 +45,9 @@ export default {
         this.cities = data.cities
         this.hotcities = data.hotCities
       }
+    },
+    getalphaabet (data) {
+      this.cityAlphabet = data
     }
   },
   mounted () {
