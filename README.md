@@ -379,5 +379,58 @@ updated () {
     },
 ```
 
+## 完成城市搜索功能
+1.  v-model="keyword" 绑定关键字
+2.  传入cities数据
+```
+  props: {
+    cities: Object
+  },
+```
+3. 在watch里面根据关键字获取数据
+```
+  watch: {
+    keyword () {
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      this.timer = setTimeout(() => {  //设置定时器进行函数截流
+        const result = []
+        if (!this.keyword) {
+          this.list = []
+          return this.list
+        }
+        for (let i in this.cities) {
+          this.cities[i].forEach(item => {
+            if (item.spell.indexOf(this.keyword) > -1 || item.name.indexOf (this.keyword) > -1) {
+              result.push(item)
+            }
+          })
+        }
+        this.list = result
+      }, 100)
+    }
+```
+4. 在mounted生命周期钩子函数里启动滑动搜索出来的列表
+```
+ mounted () {
+    this.scroll = new Bscroll(this.$refs.search)
+  }
+```
+5. 通过vshow判断如果没有所搜到城市显示
+```
+      <li
+        class="search-item border-bottom"
+        v-show="hasNoData"
+      >没有匹配的城市</li>
+
+        computed: {   //在computes里面计算 条件语句最好不要卸载html里面
+    hasNoData () {
+      let flag = this.list.length <= 0
+      return flag
+    }
+  },
+```
+
 
 
