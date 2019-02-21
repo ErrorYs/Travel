@@ -5,6 +5,7 @@
         type="text"
         placeholder="输入城市名或拼音"
         class="search-input"
+        v-model="keyword"
       >
     </div>
     <div
@@ -98,7 +99,7 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: pink;
+  background-color: #fff;
   z-index: 1;
   overflow: hidden;
   .search-item {
