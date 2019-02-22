@@ -736,6 +736,53 @@ methods: {
   }
 ```
 
+##组件递归  在组件内部使用当前组件
+1. 父组件中定义数据
+```
+  data () {
+    return {
+      list: [
+        { title: '儿童票' ,
+        children: [
+          { title: '儿童1票' },
+          { title: '儿童2票' },
+          { title: '儿童3票' },
+          { title: '儿童4票',children:[
+            {title:'儿童儿子1'},
+            {title:'儿童儿子2'},
+            {title:'儿童儿子3'},
+            {title:'儿童儿子4'}
+          ] }
+        ]},
+        { title: '成人票' },
+        { title: '老人票' },
+        { title: '学生票' }
+      ]
+    }
+  }
+}
+```
+2. 子组件使用递归
+```
+  <div>
+    <div
+      v-for="(item, index) in List"
+      :key="index"
+      class="item"
+    >
+      <div class="item-title border-bottom"> {{item.title}} </div>
+      <div v-if="item.children" class="item-children">
+        <detail-list :List="item.children"></detail-list>          //用自己name实现递归
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'DetailList',
+```
+
 
 
 
