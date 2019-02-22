@@ -12,11 +12,16 @@
           :src="item.imgUrl"
           alt=""
         >
-        <div class="item-info">
+        <router-link
+          class="item-info"
+          :key="item.id"
+          :to="'/detail/'+item.id"
+          tag="div"
+        >
           <h3 class="item-title"> {{item.title}} </h3>
           <p class="item-desc"> {{item.desc}} </p>
           <button class="item-button">查看详情</button>
-        </div>
+        </router-link>
       </li>
     </ul>
   </div>

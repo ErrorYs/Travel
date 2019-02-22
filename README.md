@@ -667,6 +667,41 @@ methods: {
     }
   }        
 ```
+##详情部分
+1. 创建路由
+```
+  {
+    path: '/detail/:id', //把当前ID传入
+    name: 'detail',
+    component: Detail
+  }
+```
+##详情banner部分
+##详情banner部分画廊
+1. 创建一个公共组件
+2. 使用swiper
+3. propos可以设置默认数据
+```
+  props: {
+    imgs: {
+      type: Array,
+      default () {
+        return ['http://img1.qunarzz.com/sight/p0/1709/e4/e4b97c2fbb4e696a3.img.png_r_800x800_ae927025.png', 'http://img1.qunarzz.com/sight/p0/1709/39/39b5b5a87f82aac2a3.img.jpg_r_800x800_5556a76a.jpg']
+      }
+    }
+  },
+```
+4. 组件里面不要带入数据,而是父组件传递
+```
+  data () {
+    return {
+      imgs: ['http://img1.qunarzz.com/sight/p0/1709/e4/e4b97c2fbb4e696a3.img.png_r_800x800_ae927025.png', 'http://img1.qunarzz.com/sight/p0/1709/39/39b5b5a87f82aac2a3.img.jpg_r_800x800_5556a76a.jpg']
+    }
+  },
+```
+5. 设置点击banner打开画廊
++banner增加布尔值showGallery,点击时为true
++gallery增加点击事件,当点击时调用事件传给banner,banner调用事件控制showGallery为false
 
 
 
