@@ -814,7 +814,40 @@ export default {
     return {x: 0, y: 0}
   }
 ```
-
+##banner加上动画
+1. 在commom文件夹创建组件
+```
+<template>
+  <transition>
+    <slot></slot>
+  </transition>
+</template>
+<script>
+export default {
+  name: 'animationFade'
+}
+</script>
+<style lang="less" scoped>
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: all.5s;
+}
+</style>
+```
+2. 在要使用动画的组件里引入动画组件,并注册然后直接用组件名称包裹要执行动画的组件
+```
+    <fade-animation>
+      <detail-gallery
+        :imgs="gallaryImgs"
+        v-show="showGallery"
+        @galleryClose="handleGalleryClose"
+      ></detail-gallery>
+    </fade-animation>
+```
 
 
 

@@ -10,23 +10,26 @@
         alt=""
       >
       <div class="banner-info">
-        <div class="banner-title">  {{sightName}}  </div>
+        <div class="banner-title"> {{sightName}} </div>
         <div class="banner-number">
           <span class="iconfont">&#xe632;</span>
-          39
+          {{gallaryImgs.length}}
         </div>
       </div>
     </div>
-    <detail-gallery
-      :imgs="gallaryImgs"
-      v-show="showGallery"
-      @galleryClose="handleGalleryClose"
-    ></detail-gallery>
+    <fade-animation>
+      <detail-gallery
+        :imgs="gallaryImgs"
+        v-show="showGallery"
+        @galleryClose="handleGalleryClose"
+      ></detail-gallery>
+    </fade-animation>
   </div>
 </template>
 
 <script>
 import DetailGallery from 'common/gallery/gallery.vue'
+import FadeAnimation from 'common/fade/animationFade.vue'
 export default {
   name: 'banner',
   props: {
@@ -48,7 +51,8 @@ export default {
     }
   },
   components: {
-    DetailGallery
+    DetailGallery,
+    FadeAnimation
   }
 
 }
