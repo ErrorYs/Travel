@@ -5,12 +5,12 @@
       @click="handleGalleryclick"
     >
       <img
-        src="//img1.qunarzz.com/sight/p0/1709/e4/e4b97c2fbb4e696a3.img.png_600x330_d421ab3d.png"
+        :src="bannerImg"
         class="banner-img"
         alt=""
       >
       <div class="banner-info">
-        <div class="banner-title">濯水景区-蒲花暗河</div>
+        <div class="banner-title">  {{sightName}}  </div>
         <div class="banner-number">
           <span class="iconfont">&#xe632;</span>
           39
@@ -18,7 +18,7 @@
       </div>
     </div>
     <detail-gallery
-      :imgs="imgs"
+      :imgs="gallaryImgs"
       v-show="showGallery"
       @galleryClose="handleGalleryClose"
     ></detail-gallery>
@@ -29,9 +29,13 @@
 import DetailGallery from 'common/gallery/gallery.vue'
 export default {
   name: 'banner',
+  props: {
+    sightName: String,
+    bannerImg: String,
+    gallaryImgs: Array
+  },
   data () {
     return {
-      imgs: ['http://img1.qunarzz.com/sight/p0/1709/e4/e4b97c2fbb4e696a3.img.png_r_800x800_ae927025.png', 'http://img1.qunarzz.com/sight/p0/1709/39/39b5b5a87f82aac2a3.img.jpg_r_800x800_5556a76a.jpg'],
       showGallery: false
     }
   },

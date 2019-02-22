@@ -77,7 +77,7 @@ export default {
     width: 100%;
   }
   .swiper-pagination {
-    bottom: -3rem;
+    bottom: -1rem;
     color: #fff;
   }
 }

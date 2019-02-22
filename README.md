@@ -782,6 +782,38 @@ methods: {
 export default {
   name: 'DetailList',
 ```
+## 获取list页面数据
+1. 通过axios获取数据
+```
++第一种写法
+  methods: {
+    gitdetaileinfo () {
+      axios.get('api/detail.json?id=' + this.$route.params.id).then(this.getdetailinfoSucc)
+    },
++第二种
+        gitdetaileinfo () {
+      axios.get('api/detail.json', {
+        params: {
+          id: this.$route.params.id
+        }
+      }).then(this.getdetailinfoSucc)
+    },
+```
+2. 解决keepalive不会请求ajax的第二种方法
+```
+  <div id="app">
+    <keep-alive exclude="detail">   //不自动请求缓存
+      <router-view />
+    </keep-alive>
+  </div>
+```
+3. 解决切换路由页面跳转过去的页面没在最上面
+```
+ ],
+  scrollBehavior (to, from, savedPosition) {   //路由里加上
+    return {x: 0, y: 0}
+  }
+```
 
 
 
