@@ -67,6 +67,7 @@ export default {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  z-index: 99;
   .warpper {
     width: 100%;
     height: 0;

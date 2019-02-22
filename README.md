@@ -703,6 +703,39 @@ methods: {
 +banner增加布尔值showGallery,点击时为true
 +gallery增加点击事件,当点击时调用事件传给banner,banner调用事件控制showGallery为false
 
+## banner头部
+1. 返回为绝对定位 当向下滑动时隐藏
+2. 头部为felx定位,当香香滑动显示
+3. 头部滑动式奸淫剑仙效果
+```
+  data () {
+    return {
+      showAbs: true,
+      styleObject: {    //在header绑定styleobject属性
+        opacity: 0
+      }
+    }
+  methods: {
+    handleScroll () {
+      const top = document.documentElement.scrollTop  //当屏幕滚动式改变opacity值
+      if (top > 40) {
+        let opacity = top / 140
+        opacity = opacity > 1 ? 1 : opacity
+        this.styleObject = { opacity }
+        this.showAbs = false
+      } else {
+        this.showAbs = true
+      }
+    }
+  },
+  activated () {
+    window.addEventListener('scroll', this.handleScroll)   //在activated生命周期里面进行  当页面展示的时候会执行
+  }
+  deactivated () {
+    window.removeEventListener('scroll',this.handleScroll)   //deactivated时在页面隐藏或者切换的时候执行,如果不在这里清除window全局事件,那么在每一个页面都会执行这个函数
+  }
+```
+
 
 
 
